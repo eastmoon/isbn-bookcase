@@ -1,2 +1,24 @@
-# isbn_bookcase
-Use ISBN to create self bookcase. It will include a crawler to search ISBN website, and a web server for user to setting bookcase.
+# ISBN 書櫃
+
+本專案是利用 ISBN 資料來建構個人書櫃，這專案會包跨一個利用 ISBN 進行網頁爬蟲，以此收集外部的書籍資料，並提供一個網站供設定書櫃。
+
++ 啟動
+
+```
+dockerw start
+```
+
++ 開發模式
+
+```
+dockerw dev
+```
+
++ 執行爬蟲
+> 使用本地資料來進行網頁爬蟲來擷取書籍資訊
+
+```
+dockerw crawler
+```
+
+### 相關連結
