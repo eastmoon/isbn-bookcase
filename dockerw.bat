@@ -147,11 +147,26 @@ goto end
 :: ------------------- Command "dev" mathod -------------------
 
 :cli-crawler (
-    echo ^> Crawler website
+    echo ^> Build ebook Docker images with gitbook tools
+    docker build --rm -t isbn-bookcase-crawler:%PROJECT_NAME% ./docker/crawler
+
+    echo ^> Startup docker container instance and execute crawler
+    IF defined DEVELOPMENT_MODEL (
+        docker run -ti --rm^
+            -v %cd%\src\crawler:/repo/^
+            isbn-bookcase-crawler:%PROJECT_NAME% bash
+    ) else (
+        docker run -ti --rm^
+            -v %cd%\src\crawler:/repo/^
+            isbn-bookcase-crawler:%PROJECT_NAME% bash -l -c "ls /repo"
+    )
     goto end
 )
 
 :cli-crawler-args (
+    for %%p in (%*) do (
+        if "%%p"=="--dev" ( set DEVELOPMENT_MODEL=1 )
+    )
     goto end
 )
 
