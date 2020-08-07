@@ -148,7 +148,9 @@ goto end
 
 :cli-crawler (
     echo ^> Build ebook Docker images with gitbook tools
+    copy src\crawler\.dependencies docker\crawler\
     docker build --rm -t isbn-bookcase-crawler:%PROJECT_NAME% ./docker/crawler
+    del docker\crawler\.dependencies
 
     echo ^> Startup docker container instance and execute crawler
     IF defined DEVELOPMENT_MODEL (
