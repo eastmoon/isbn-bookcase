@@ -1,4 +1,10 @@
 # Asynchronous Python and XML
+# It will use library requests to retrieve web page or retrieve API response.
+# Use library CookieJar to sned cookie information when website need login information.
+#
+# Reference :
+# Request : https://requests.readthedocs.io/en/latest/user/quickstart/
+# Python 3 Exception : https://docs.python.org/3/library/exceptions.html
 
 # import package
 from http.cookiejar import CookieJar
@@ -32,7 +38,6 @@ class Apax:
     def execute(self, info):
         # create cookies controller object
         cookiesJar = CookieJar()
-        #   result = requests.get(info['url'], cookies=info['cookies'], headers=info['headers'], params=info['params'], data=info['data'])
         # retrieve url
         requestURL = ''
         if 'url' in info:
@@ -72,18 +77,22 @@ class Apax:
             requestData = info['data']
 
         # Execute asynchronous connection with requests tools.
-        result = None
+        req = None
         if requestType == None:
             raise Exception('Request type can not empty.')
-        if requestType == 'get':
-            result = requests.get(requestURL, cookies=requestCookies, headers=requestHeaders, params=requestParams)
-        if requestType == 'post':
-            result = requests.post(requestURL, cookies=requestCookies, headers=requestHeaders, data=requestData)
+        else:
+            try:
+                if requestType == 'get':
+                    req = requests.get(requestURL, cookies=requestCookies, headers=requestHeaders, params=requestParams)
+                if requestType == 'post':
+                    req = requests.post(requestURL, cookies=requestCookies, headers=requestHeaders, data=requestData)
+            except requests.exceptions.RequestException as e:
+                raise ConnectionError(e)
 
         # Return result by difference data structure.
         if requestResult == 'json':
-            return result.json()
+            return req.json()
         elif requestResult == 'text':
-            return result.text
+            return req.text
         else:
-            return result
+            return req
