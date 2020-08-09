@@ -1,4 +1,4 @@
-# Asynchronous Python and XML
+# Asynchronous Python and XML (APAX) :
 # It will use library requests to retrieve web page or retrieve API response.
 # Use library CookieJar to sned cookie information when website need login information.
 #
