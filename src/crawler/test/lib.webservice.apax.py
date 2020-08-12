@@ -11,7 +11,18 @@ if __name__ == '__main__':
         result = apax.execute({
             "type": "get",
             "result": "text",
-            "url": "https://www.google.com/"
+            "url": "https://jsonplaceholder.typicode.com/users/1"
+        })
+        print(">>> APAX result 1")
+        print(result)
+    except ConnectionError as e:
+        print(">>> APAX error : ", e, sep="\n")
+
+    try:
+        result = apax.execute({
+            "type": "get",
+            "result": "text",
+            "url": "https://jsonplaceholder.test.typicode.com/users/1"
         })
         print(">>> APAX result")
         print(result)
